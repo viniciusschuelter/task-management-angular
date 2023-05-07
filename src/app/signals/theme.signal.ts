@@ -12,7 +12,7 @@ export const currTheme = computed(() => {
     return theme();
 });
 
-effect(() => console.log('Current theme is: ' + theme()));
+// effect(() => console.log('Current theme is: ' + theme()));
 
 export interface ThemeColorIcon {
     bgColor: string;

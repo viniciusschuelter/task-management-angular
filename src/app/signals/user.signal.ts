@@ -12,4 +12,4 @@ export const isLogged = computed(() => {
   return !!user();
 });
 
-effect(() => console.log(user()));
+// effect(() => console.log(user()));

@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SwitcherThemeComponent } from '../../components/switcher-theme/switcher-theme.component';
-import {isLogged, user} from '../../signals/user.signal';
+// import {isLogged, user} from '../../signals/user.signal';
 
 @Component({
     selector: 'app-nav',
@@ -16,7 +16,7 @@ import {isLogged, user} from '../../signals/user.signal';
                     </a>
                 </li>
             </ul>
-            <ul *ngIf="isLogged()">
+            <ul>
                 <li>
                     <a [routerLink]="'home'" class="contrast" onclick="event.preventDefault()">
                         <strong>Home</strong>
@@ -56,10 +56,10 @@ import {isLogged, user} from '../../signals/user.signal';
     ],
 })
 export class NavComponent {
-    isLogged = isLogged;
+    // isLogged = isLogged;
 
     logout = () => {
       localStorage.removeItem('user');
-      user.set(null);
+      // user.set(null);
     }
 }
