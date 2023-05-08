@@ -1,14 +1,24 @@
 <article class="grid">
-    <div>
-        <hgroup>
-            <h1>Task Management</h1>
-            <h2>A simple task management made with Angular</h2>
-        </hgroup>
-        <form [formGroup]="userFormGroup">
-            <input type="text" name="name" formControlName="name" placeholder="Workspace name)" />
-            <input type="password" name="password" formControlName="password" placeholder="Password" />
-            <button type="submit" class="contrast" (click)="onLogin()">Login</button>
-        </form>
-    </div>
-    <div></div>
+  <div>
+    <hgroup>
+      <h1>Task Management</h1>
+      <h2>A simple task management made with Angular</h2>
+    </hgroup>
+    <form [formGroup]="userFormGroup">
+      <input
+        type="text"
+        name="name"
+        formControlName="name"
+        placeholder="Workspace name)"
+      />
+      <input
+        type="password"
+        name="password"
+        formControlName="password"
+        placeholder="Password"
+      />
+      <button type="submit" class="contrast" (click)="onLogin()">Login</button>
+    </form>
+  </div>
+  <div></div>
 </article>

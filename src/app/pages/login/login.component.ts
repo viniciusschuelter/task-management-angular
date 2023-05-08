@@ -1,4 +1,4 @@
-import {Component, effect, inject} from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,14 +8,14 @@ import {
   Validators,
 } from '@angular/forms';
 import { workspace } from 'src/app/signals/workspace.signal';
-import { Router } from "@angular/router";
-import {WorkspaceInterface} from "../../interfaces/workspace.interface";
+import { Router } from '@angular/router';
+import { WorkspaceInterface } from '../../interfaces/workspace.interface';
 
 @Component({
   standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
-  imports: [FormsModule, ReactiveFormsModule]
+  imports: [FormsModule, ReactiveFormsModule],
 })
 export class LoginComponent {
   private readonly router = inject(Router);
@@ -27,14 +27,16 @@ export class LoginComponent {
   });
 
   constructor() {
-
     effect(() => console.log(workspace()));
   }
 
   onLogin(): void {
     if (this.userFormGroup.valid) {
       workspace.update(() => this.userFormGroup.value as WorkspaceInterface);
-      localStorage.setItem('workspace', JSON.stringify(this.userFormGroup.value));
+      localStorage.setItem(
+        'workspace',
+        JSON.stringify(this.userFormGroup.value)
+      );
       this.router.navigateByUrl('home');
     }
   }
