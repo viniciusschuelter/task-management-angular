@@ -9,7 +9,8 @@
         type="text"
         name="name"
         formControlName="name"
-        placeholder="Workspace name)"
+        placeholder="Workspace name"
+        (ngModelChange)="checkIfExists($event)"
       />
       <input
         type="password"
