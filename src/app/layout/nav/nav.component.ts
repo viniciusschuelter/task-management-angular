@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SwitcherThemeComponent } from '../../components/switcher-theme/switcher-theme.component';
-// import {isLogged, user} from '../../signals/user.signal';
+import { isLogged, workspace } from '../../signals/workspace.signal';
 
 @Component({
     selector: 'app-nav',
@@ -12,26 +12,26 @@ import { SwitcherThemeComponent } from '../../components/switcher-theme/switcher
             <ul>
                 <li>
                     <a href="./" class="contrast" onclick="event.preventDefault()">
-                        <strong>Playground Angular Signal</strong>
+                        <strong>Task Management Angular</strong>
                     </a>
                 </li>
             </ul>
-            <ul>
-                <li>
-                    <a [routerLink]="'home'" class="contrast" onclick="event.preventDefault()">
-                        <strong>Home</strong>
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="'dimension-c137'" class="contrast" onclick="event.preventDefault()">
-                        <strong>Dimension-C137</strong>
-                    </a>
-                </li>
-                <li>
-                    <a [routerLink]="'lazy-renderer'" class="contrast" onclick="event.preventDefault()">
-                        <strong>Lazy Renderer</strong>
-                    </a>
-                </li>
+            <ul *ngIf="isLogged()">
+<!--                <li>-->
+<!--                    <a [routerLink]="'home'" class="contrast" onclick="event.preventDefault()">-->
+<!--                        <strong>Home</strong>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a [routerLink]="'dimension-c137'" class="contrast" onclick="event.preventDefault()">-->
+<!--                        <strong>Dimension-C137</strong>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a [routerLink]="'lazy-renderer'" class="contrast" onclick="event.preventDefault()">-->
+<!--                        <strong>Lazy Renderer</strong>-->
+<!--                    </a>-->
+<!--                </li>-->
                 <li>
                     <app-switcher-theme></app-switcher-theme>
                 </li>
@@ -56,10 +56,10 @@ import { SwitcherThemeComponent } from '../../components/switcher-theme/switcher
     ],
 })
 export class NavComponent {
-    // isLogged = isLogged;
+    isLogged = isLogged;
 
     logout = () => {
-      localStorage.removeItem('user');
-      // user.set(null);
+      localStorage.removeItem('workspace');
+      workspace.set(null);
     }
 }

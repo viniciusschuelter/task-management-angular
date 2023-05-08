@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import {Component, effect, inject} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -7,8 +7,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { User, user } from 'src/app/signals/user.signal';
+import { workspace } from 'src/app/signals/workspace.signal';
 import { Router } from "@angular/router";
+import {WorkspaceInterface} from "../../interfaces/workspace.interface";
 
 @Component({
   standalone: true,
@@ -21,14 +22,19 @@ export class LoginComponent {
   private readonly fb = inject(FormBuilder);
 
   userFormGroup: FormGroup = this.fb?.group({
-    login: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
 
+  constructor() {
+
+    effect(() => console.log(workspace()));
+  }
+
   onLogin(): void {
     if (this.userFormGroup.valid) {
-      user.update(() => this.userFormGroup.value as User);
-      localStorage.setItem('user', JSON.stringify(this.userFormGroup.value));
+      workspace.update(() => this.userFormGroup.value as WorkspaceInterface);
+      localStorage.setItem('workspace', JSON.stringify(this.userFormGroup.value));
       this.router.navigateByUrl('home');
     }
   }

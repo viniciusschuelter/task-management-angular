@@ -1,12 +1,12 @@
 <article class="grid">
     <div>
         <hgroup>
-            <h1>Sign(al) in</h1>
-            <h2>A simple signal to manage your login</h2>
+            <h1>Task Management</h1>
+            <h2>A simple task management made with Angular</h2>
         </hgroup>
         <form [formGroup]="userFormGroup">
-            <input type="text" name="login" formControlName="login" placeholder="Login (type anything)" />
-            <input type="password" name="password" formControlName="password" placeholder="Password (type anything)" />
+            <input type="text" name="name" formControlName="name" placeholder="Workspace name)" />
+            <input type="password" name="password" formControlName="password" placeholder="Password" />
             <button type="submit" class="contrast" (click)="onLogin()">Login</button>
         </form>
     </div>
