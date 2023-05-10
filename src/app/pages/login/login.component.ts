@@ -31,45 +31,48 @@ export class LoginComponent {
 
   workpaceExists = false;
 
-  workpaceExists$ = this.userFormGroup
-    .get('name')
-    ?.valueChanges?.pipe(
-      delay(400),
-      switchMap((name: string) =>
-        this.workspaceService
-          .getWorkspaceByName(name)
-          .pipe(map(_ => {
-            this.workpaceExists = !!_;
-            return _
-          }))
+  workpaceExists$ = this.userFormGroup.get('name')?.valueChanges?.pipe(
+    delay(400),
+    switchMap((name: string) =>
+      this.workspaceService.getWorkspaceByName(name).pipe(
+        map(_ => {
+          this.workpaceExists = !!_;
+          return _;
+        })
       )
-    );
+    )
+  );
 
   constructor() {
-    this.userFormGroup.get('name')
+    this.userFormGroup.get('name');
     effect(() => console.log(workspace()));
   }
-  storageWorkspace(): void {
-    workspace.update(() => this.userFormGroup.value as WorkspaceInterface);
-    localStorage.setItem('workspace', JSON.stringify(this.userFormGroup.value));
+
+  storageWorkspace(workspaceSaved: WorkspaceInterface): void {
+    workspace.update(() => workspaceSaved);
+    localStorage.setItem('workspace', JSON.stringify(workspaceSaved));
     this.router.navigateByUrl('workspace');
   }
 
   createWorkspace(): void {
     if (this.userFormGroup.valid) {
-      this.workspaceService.postWorkspace(this.userFormGroup.value).subscribe( (workspace) => {
-        this.storageWorkspace();
+      this.workspaceService
+        .postWorkspace(this.userFormGroup.value)
+        .subscribe(workspace => {
+          workspace && this.storageWorkspace(workspace);
           console.log(workspace);
-      })
+        });
     }
   }
 
   accessWorkspace(): void {
     if (this.userFormGroup.valid) {
-      this.workspaceService.accessWorkspace(this.userFormGroup.value).subscribe( (workspace) => {
-        this.storageWorkspace();
-        console.log(workspace);
-      })
+      this.workspaceService
+        .accessWorkspace(this.userFormGroup.value)
+        .subscribe(workspace => {
+          workspace && this.storageWorkspace(workspace);
+          console.log(workspace);
+        });
     }
   }
 }

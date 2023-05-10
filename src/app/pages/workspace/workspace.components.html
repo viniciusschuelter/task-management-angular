@@ -1,3 +1,11 @@
-<div>
-  workspace works
+<div
+  *ngIf="$groups | async as groups"
+  style="overscroll-behavior: contain"
+  class="scroll position-relative h-100 mh-100 d-flex px-md-5"
+  cdkScrollable
+  cdkDropListGroup
+>
+  <app-kanban-column
+    *ngFor="let group of groups"
+  ></app-kanban-column>
 </div>
