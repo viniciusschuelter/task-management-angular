@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
+import { WorkspaceComponent } from './pages/workspace/workspace.component';
 
 const routes: Route[] = [
-  // {
-  //   path: 'workspace',
-  //   loadChildren: () => import('./pages/dashboard/dashboard-routing.module').then(m => m.DashboardRoutingModule)
-  // },
+  {
+    path: 'workspace',
+    loadComponent: () => WorkspaceComponent,
+  },
   {
     path: 'login',
     loadComponent: () => LoginComponent,

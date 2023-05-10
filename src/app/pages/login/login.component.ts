@@ -11,12 +11,11 @@ import { workspace } from 'src/app/signals/workspace.signal';
 import { Router } from '@angular/router';
 import { WorkspaceInterface } from '../../interfaces/workspace.interface';
 import { WorkspaceService } from '../../services/workspace.service';
-import { map, Observable, switchMap } from 'rxjs';
+import { delay, map, switchMap } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
 
 @Component({
   standalone: true,
-  selector: 'app-login',
   templateUrl: './login.component.html',
   imports: [FormsModule, ReactiveFormsModule, NgIf, AsyncPipe],
 })
@@ -35,6 +34,7 @@ export class LoginComponent {
   workpaceExists$ = this.userFormGroup
     .get('name')
     ?.valueChanges?.pipe(
+      delay(400),
       switchMap((name: string) =>
         this.workspaceService
           .getWorkspaceByName(name)
@@ -52,13 +52,13 @@ export class LoginComponent {
   storageWorkspace(): void {
     workspace.update(() => this.userFormGroup.value as WorkspaceInterface);
     localStorage.setItem('workspace', JSON.stringify(this.userFormGroup.value));
-    this.router.navigateByUrl('home');
+    this.router.navigateByUrl('workspace');
   }
 
   createWorkspace(): void {
     if (this.userFormGroup.valid) {
-      this.storageWorkspace();
       this.workspaceService.postWorkspace(this.userFormGroup.value).subscribe( (workspace) => {
+        this.storageWorkspace();
           console.log(workspace);
       })
     }
@@ -66,8 +66,8 @@ export class LoginComponent {
 
   accessWorkspace(): void {
     if (this.userFormGroup.valid) {
-      this.storageWorkspace();
       this.workspaceService.accessWorkspace(this.userFormGroup.value).subscribe( (workspace) => {
+        this.storageWorkspace();
         console.log(workspace);
       })
     }
