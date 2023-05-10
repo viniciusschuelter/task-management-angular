@@ -8,10 +8,18 @@ import { WorkspaceInterface } from '../interfaces/workspace.interface';
 @Injectable({ providedIn: 'root'})
 export class WorkspaceService {
 
-  private readonly urlBase = environment.urlBase;
+  private readonly urlBase = `${environment.urlBase}/workspace`;
   private http = inject(HttpClient)
 
   getWorkspaceByName(name: string): Observable<WorkspaceInterface> {
-    return this.http.get<WorkspaceInterface>(`${this.urlBase}/name`);
+    return this.http.get<WorkspaceInterface>(`${this.urlBase}/name/${name}`);
+  }
+
+  accessWorkspace(workspace: WorkspaceInterface): Observable<WorkspaceInterface> {
+    return this.http.get<WorkspaceInterface>(`${this.urlBase}/name/${workspace.name}/password/${workspace.password}`);
+  }
+  
+  postWorkspace(workspace: WorkspaceInterface): Observable<WorkspaceInterface> {
+    return this.http.post<WorkspaceInterface>(this.urlBase, workspace);
   }
 }

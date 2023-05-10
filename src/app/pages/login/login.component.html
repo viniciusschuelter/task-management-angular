@@ -10,7 +10,6 @@
         name="name"
         formControlName="name"
         placeholder="Workspace name"
-        (ngModelChange)="checkIfExists($event)"
       />
       <input
         type="password"
@@ -18,7 +17,13 @@
         formControlName="password"
         placeholder="Password"
       />
-      <button type="submit" class="contrast" (click)="onLogin()">Login</button>
+      <ng-container *ngIf="workpaceExists$ | async as workspace"></ng-container>
+      <ng-container *ngIf="workpaceExists else noExists">
+        <button type="submit" class="contrast" (click)="accessWorkspace()">Access Workspace</button>
+      </ng-container>
+      <ng-template #noExists>
+        <button type="submit" class="contrast" (click)="createWorkspace()">Create Workspace</button>
+      </ng-template>
     </form>
   </div>
   <div></div>

@@ -4,7 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 
 const routes: Route[] = [
   // {
-  //   path: 'dashboard',
+  //   path: 'workspace',
   //   loadChildren: () => import('./pages/dashboard/dashboard-routing.module').then(m => m.DashboardRoutingModule)
   // },
   {

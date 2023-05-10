@@ -16,7 +16,7 @@ import { isLogged, workspace } from '../../signals/workspace.signal';
           </a>
         </li>
       </ul>
-      <ul *ngIf="isLogged()">
+      <ul [hidden]="!isLogged()">
         <!--                <li>-->
         <!--                    <a [routerLink]="'home'" class="contrast" onclick="event.preventDefault()">-->
         <!--                        <strong>Home</strong>-->
