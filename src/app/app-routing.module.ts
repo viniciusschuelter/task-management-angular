@@ -7,7 +7,7 @@ const routes: Route[] = [
   {
     path: 'workspace',
     loadComponent: () => WorkspaceComponent,
-    data: JSON.parse(localStorage.getItem('workspace') || '')
+    data: JSON.parse(localStorage.getItem('workspace') || '{}')
   },
   {
     path: 'login',

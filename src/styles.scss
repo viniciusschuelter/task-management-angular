@@ -33,3 +33,16 @@
     grid-template-columns: repeat(1, minmax(0, auto));
   }
 }
+
+
+.d-flex {
+  display: flex;
+
+  &.align-items-center {
+    align-items: center;
+  }
+
+  &.justify-content-center {
+    justify-content: center;
+  }
+}

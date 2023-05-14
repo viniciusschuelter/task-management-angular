@@ -1,9 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { GroupInterface } from '../../interfaces/group.interface';
 
 @Component({
   standalone: true,
   selector: 'app-kanban-column',
-  template: ` kanban column works `,
+  template: `{{ column.title }}`,
   imports: [],
 })
-export class KanbanColumnComponent {}
+export class KanbanColumnComponent {
+  @Input() column!: GroupInterface;
+
+}
