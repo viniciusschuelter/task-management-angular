@@ -16,7 +16,7 @@ import { heightFadeAnimation } from '../../animations/height-fade.animation';
       Add {{type}}
     </button>
     <div class="container-kanban-add" [hidden]="!alwaysVisible && !visible" @height-fade>
-      <input type="text" placeholder="{{type}} Name" [(ngModel)]="model.title" />
+      <input type="text" placeholder="{{type}} Name" [(ngModel)]="model.title"  (keydown.enter)="add()"/>
       <app-color-picker [(color)]="model.color"></app-color-picker>
     </div>
   `,
