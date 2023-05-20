@@ -7,11 +7,21 @@ import { Observable } from 'rxjs';
 import { GroupInterface } from '../../interfaces/group.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KanbanAddComponent } from '../../components/kanban-add/kanban-add.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkScrollableModule } from '@angular/cdk/scrolling';
 
 @Component({
   standalone: true,
   templateUrl: './workspace.components.html',
-  imports: [NgIf, NgFor, AsyncPipe, KanbanColumnComponent, KanbanAddComponent],
+  imports: [
+    NgIf,
+    NgFor,
+    AsyncPipe,
+    KanbanColumnComponent,
+    KanbanAddComponent,
+    CdkScrollableModule,
+    DragDropModule
+  ],
 })
 export class WorkspaceComponent {
   private groupService = inject(GroupService);
@@ -24,6 +34,8 @@ export class WorkspaceComponent {
     .pipe();
 
   addGroup(group: GroupInterface): void {
-    this.groupService.postGroupByWorkspace({ ...group, workspace: this.workspace }).subscribe()
+    this.groupService
+      .postGroupByWorkspace({ ...group, workspace: this.workspace })
+      .subscribe();
   }
 }

@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './layout/nav/nav.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     NavComponent,

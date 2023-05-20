@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ControlValueAccessor, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { GroupInterface } from '../../interfaces/group.interface';
 import { ColorPikerComponent } from '../color-picker/color-piker.component';
 import { getRandomVariablePresetColor } from '../../utils/utils';
-import { widthFadeInvertAnimation } from '../../animations/width-fade.animation';
 import { NgIf } from '@angular/common';
 import { heightFadeAnimation } from '../../animations/height-fade.animation';
 
@@ -12,23 +15,36 @@ import { heightFadeAnimation } from '../../animations/height-fade.animation';
   selector: 'app-kanban-add',
   animations: [heightFadeAnimation],
   template: `
-    <button *ngIf="!alwaysVisible" [disabled]="!model.title && visible" type="submit" class="contrast" (click)="add()">
-      Add {{type}}
+    <button
+      *ngIf="!alwaysVisible"
+      [disabled]="!model.title && visible"
+      type="submit"
+      class="contrast mb-0"
+      (click)="add()">
+      Add {{ type }}
     </button>
-    <div class="container-kanban-add" [hidden]="!alwaysVisible && !visible" @height-fade>
-      <input type="text" placeholder="{{type}} Name" [(ngModel)]="model.title"  (keydown.enter)="add()"/>
+    <div
+      class="container-kanban-add"
+      [hidden]="!alwaysVisible && !visible"
+      @height-fade>
+      <input
+        type="text"
+        placeholder="{{ type }} Name"
+        [(ngModel)]="model.title"
+        (keydown.enter)="add()" />
       <app-color-picker [(color)]="model.color"></app-color-picker>
     </div>
   `,
-  styles: [`
-    .container-kanban-add {
-      display: flex;
-    }
-  `],
+  styles: [
+    `
+      .container-kanban-add {
+        display: flex;
+      }
+    `,
+  ],
   imports: [NgIf, FormsModule, ReactiveFormsModule, ColorPikerComponent],
 })
 export class KanbanAddComponent implements ControlValueAccessor {
-
   @Input() alwaysVisible = false;
   @Input() type: 'Group' | 'Task' = 'Group';
   @Output() modelChange = new EventEmitter<GroupInterface>();
@@ -58,5 +74,4 @@ export class KanbanAddComponent implements ControlValueAccessor {
   writeValue(obj: any): void {
     this.model = obj;
   }
-
 }
