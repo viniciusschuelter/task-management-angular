@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { getRandomVariablePresetColor, presetColors } from '../../utils/utils';
 
 @Component({
   standalone: true,
@@ -7,10 +8,11 @@ import { NgFor, NgIf } from '@angular/common';
   template: `
     <div
       [style.backgroundColor]="color"
-      class="d-flex align-items-center justify-content-center rounded"
+      class="d-flex align-items-center justify-content-center rounded ms-3"
       (click)="showGrid = true"
     >
-      <i class="ic-paint-bucket" [style.color]="color"></i>
+<!--      <i class="ic-paint-bucket" [style.color]="color"></i>-->
+      <img class="p-2" src="assets/icons/colors.svg" [style.color]="color"/>
     </div>
     <div class="colors-grid my-5" *ngIf="showGrid">
       <div
@@ -43,27 +45,10 @@ import { NgFor, NgIf } from '@angular/common';
   `]
 })
 export class ColorPikerComponent {
-  @Input() color: string;
+  @Input() color: string | undefined;
   @Output() colorChange = new EventEmitter<string>();
 
   showGrid = false;
 
-  colors = [
-    "#EB4040", // 'var(--red)'
-    "#E91F64", // 'var(--pink)'
-    "#9C28B1", // 'var(--purple)'
-    "#7241CC", // 'var(--purple-2)'
-    "#4052B6", // 'var(--indigo)'
-    "#048BF6", // 'var(--blue)'
-    "#00B1FF", // 'var(--blue-2)'
-    "#00C6D5", // 'var(--teal)'
-    "#05ACB7", // 'var(--cyan)'
-    "#53B67D", // 'var(--green)'
-    "#8BC248", // 'var(--green-2)'
-    "#C7D048", // 'var(--green-3)'
-    "#FABF2B", // 'var(--yellow)'
-    "#FF9700", // 'var(--orange)'
-    "#FF5C00", // 'var(--orange-2)'
-    "#795547" // 'var(--brown)'
-  ];
+  colors: string[] = presetColors;
 }

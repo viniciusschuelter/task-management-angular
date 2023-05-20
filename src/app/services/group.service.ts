@@ -12,4 +12,8 @@ export class GroupService {
   getGroupsByWorkspace(workspaceId: string): Observable<GroupInterface[]> {
     return this.http.get<GroupInterface[]>(`${this.urlBase}s/${workspaceId}`);
   }
+
+  postGroupByWorkspace(group: GroupInterface): Observable<GroupInterface> {
+    return this.http.post<GroupInterface>(this.urlBase, group);
+  }
 }

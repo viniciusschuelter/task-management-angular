@@ -1,23 +1,62 @@
-import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ControlValueAccessor, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GroupInterface } from '../../interfaces/group.interface';
+import { ColorPikerComponent } from '../color-picker/color-piker.component';
+import { getRandomVariablePresetColor } from '../../utils/utils';
+import { widthFadeInvertAnimation } from '../../animations/width-fade.animation';
+import { NgIf } from '@angular/common';
+import { heightFadeAnimation } from '../../animations/height-fade.animation';
 
 @Component({
   standalone: true,
   selector: 'app-kanban-add',
-  template: `<article class="grid">
-    <div class="grid">
-        <input
-          type="text"
-          name="name"
-          formControlName="name"
-          placeholder="Workspace name"
-          [(ngModel)]=""
-        />
-        <app-color-picker></app-color-picker>
+  animations: [heightFadeAnimation],
+  template: `
+    <button *ngIf="!alwaysVisible" [disabled]="!model.title && visible" type="submit" class="contrast" (click)="add()">
+      Add {{type}}
+    </button>
+    <div class="container-kanban-add" [hidden]="!alwaysVisible && !visible" @height-fade>
+      <input type="text" placeholder="{{type}} Name" [(ngModel)]="model.title" />
+      <app-color-picker [(color)]="model.color"></app-color-picker>
     </div>
   `,
-  imports: [FormsModule],
+  styles: [`
+    .container-kanban-add {
+      display: flex;
+    }
+  `],
+  imports: [NgIf, FormsModule, ReactiveFormsModule, ColorPikerComponent],
 })
-export class KanbanAddComponent {
-  obje
+export class KanbanAddComponent implements ControlValueAccessor {
+
+  @Input() alwaysVisible = false;
+  @Input() type: 'Group' | 'Task' = 'Group';
+  @Output() modelChange = new EventEmitter<GroupInterface>();
+
+  model: GroupInterface = { title: '', color: getRandomVariablePresetColor() };
+  visible = false;
+
+  private onChangeCallback: any = () => {};
+
+  private onTouchCallback: any = () => {};
+
+  add(): void {
+    this.visible = true;
+    if (this.model.title) {
+      this.modelChange.emit(this.model);
+    }
+  }
+
+  registerOnTouched(fn: any): void {
+    this.onTouchCallback = fn;
+  }
+
+  registerOnChange(fn: any): void {
+    this.onChangeCallback = fn;
+  }
+
+  writeValue(obj: any): void {
+    this.model = obj;
+  }
+
 }

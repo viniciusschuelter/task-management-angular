@@ -1,5 +1,6 @@
+<app-kanban-add (modelChange)="addGroup($event)"></app-kanban-add>
 <div
-  *ngIf="$groups | async as groups"
+  *ngIf="groups$ | async as groups"
   style="overscroll-behavior: contain"
   class="scroll position-relative h-100 mh-100 d-flex px-md-5"
   cdkScrollable
