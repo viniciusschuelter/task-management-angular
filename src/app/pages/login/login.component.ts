@@ -12,12 +12,15 @@ import { Router } from '@angular/router';
 import { WorkspaceInterface } from '../../interfaces/workspace.interface';
 import { WorkspaceService } from '../../services/workspace.service';
 import { delay, map, switchMap } from 'rxjs';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import {
+  VirtualScrollDirective
+} from '../../../../projects/ng-signal-dnd/src/lib/virtual-scroll/virtual-scroll.directive';
 
 @Component({
   standalone: true,
   templateUrl: './login.component.html',
-  imports: [FormsModule, ReactiveFormsModule, NgIf, AsyncPipe],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor, AsyncPipe, VirtualScrollDirective],
 })
 export class LoginComponent {
   private readonly router = inject(Router);

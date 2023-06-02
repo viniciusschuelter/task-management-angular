@@ -25,7 +25,7 @@ import { heightFadeAnimation } from '../../animations/height-fade.animation';
     </button>
     <div
       class="container-kanban-add"
-      [hidden]="!alwaysVisible && !visible"
+      *ngIf="alwaysVisible || visible"
       @height-fade>
       <input
         type="text"
