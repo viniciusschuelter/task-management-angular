@@ -5,11 +5,12 @@ export interface VirtualScrollItem {
   position: number;
   height: number;
   rendered: boolean;
+  data: any;
 }
 
 export interface VirtualScrollViewport {
-  viewportSize: number;
-  items: VirtualScrollItem[];
-  itemsRendered: Map<string, boolean>;
-  viewportRange: { first: number; last: number };
+  viewportSize?: number;
+  items?: unknown[];
+  itemsRendered: VirtualScrollItem[];
+  viewportRange?: { firstIndex: number; lastIndex: number };
 }

@@ -1,9 +1,10 @@
 import { signal, Signal } from '@angular/core';
 import { binarySearch } from '../utils/utils';
+import { VirtualScrollViewport } from '../interfaces/virtual-scroll.interface';
 
-export const fromViewportObserverSignal = (viewport: HTMLElement, totalHeight: number): void => {
-  const Y_OFFSET = 500; // Extra pixels outside the viewport, in each direction, to render nodes in
-  const Y_EPSILON = 150; // Minimum pixel change required to recalculate the rendered nodes
+export const fromViewportObserverSignal = (viewport: HTMLElement, items: any[], totalHeight: number): VirtualScrollViewport => {
+  const Y_OFFSET = 60; // Extra pixels outside the viewport, in each direction, to render nodes in
+  const Y_EPSILON = 15; // Minimum pixel change required to recalculate the rendered nodes
 
   const yBlocks = Math.round(viewport.scrollTop / Y_EPSILON) || 0;
   const x = viewport.scrollLeft || 0;
@@ -11,11 +12,9 @@ export const fromViewportObserverSignal = (viewport: HTMLElement, totalHeight: n
 
   const y =  yBlocks * Y_EPSILON;
 
-  const visibleNodes = [];
+  const visibleNodes = [...items];
 
-  for (let i = 0; i < viewport.children.length; i++) {
-    visibleNodes.push(viewport.children.item(i));
-  }
+  // debugger
 
   // if (!viewportHeight || !visibleNodes.length) return [];
 
@@ -24,7 +23,7 @@ export const fromViewportObserverSignal = (viewport: HTMLElement, totalHeight: n
   // In that case firstIndex === 0 and lastIndex === visibleNodes.length - 1 (e.g. 1000),
   // which means that it loops through every visibleNodes item and push them into viewportNodes array.
   // We can prevent nodes from being pushed to the array and wait for the appropriate calculations to take place
-  const lastVisibleNode = visibleNodes.slice(-1)[0]
+  // const lastVisibleNode = visibleNodes.slice(-1)[0]
   // if (!lastVisibleNode.height && lastVisibleNode.position === 0) return [];
 
   // Search for first node in the viewport using binary search
@@ -49,9 +48,13 @@ export const fromViewportObserverSignal = (viewport: HTMLElement, totalHeight: n
 
   console.log(viewportNodes);
 
+  return {
+    items,
+    itemsRendered: viewportNodes,
+    viewportSize: viewport.clientHeight,
+    viewportRange: { firstIndex, lastIndex }
+  }
+
   debugger
-  // return viewportNodes;
-  //
-  // return
 };
 
